@@ -90,7 +90,7 @@
 |område
 |GM_Surface
 |.FLATE
-|[1..1]
+|[0..1]
  
 |posisjon
 |GM_Point
@@ -248,7 +248,7 @@
 |område
 |GM_Surface
 |.FLATE
-|[1..1]
+|[0..1]
  
 |posisjon
 |GM_Point
@@ -377,7 +377,7 @@
 |område
 |GM_Surface
 |.FLATE
-|[1..1]
+|[0..1]
  
 |posisjon
 |GM_Point

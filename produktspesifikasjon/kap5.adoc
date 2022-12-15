@@ -1,5 +1,5 @@
 // Start of UML-model
-=== Pakke: «ApplicationSchema» FKB-Tiltak-5.0
+=== Pakke: «ApplicationSchema» FKB-Tiltak-5.0.1
 *Definisjon:* Datamodell for produktspesifikasjon FKB-Tiltakt. FKB-Tiltak inneholder objekter (=områder der det skjer utbygging) som er omsøkt/godkjent gjennom saksbehandling i kommunen eller andre offentlige myndigheter.
  
 [discrete]
@@ -25,7 +25,7 @@
 |FKB-Tiltak
  
 |SOSI_modellstatus
-|gyldig
+|utkast
  
 |SOSI_spesifikasjonstype
 |produktspesifikasjon
@@ -37,7 +37,7 @@
 |http://skjema.geonorge.no/SOSI/produktspesifikasjon/FKB-Tiltak/5.0
  
 |version
-|5.0
+|5.0.1
  
 |xmlns
 |app
@@ -78,6 +78,8 @@ image::diagrammer/Hoveddiagram - objekttyper og kodelister.png[link=diagrammer/H
 
 Tiltak registreres generelt så tidlig som mulig i tiltaksbasen, gjerne allerede fra mottak av søknad. 
 
+Fortrinnsvis registreres tiltaket som en flate som tiltaket befinner seg innenfor, men datamodellen åpner også for at tiltaket kan representeres som et punkt som representerer plasseringen til tiltaket.
+
 Når tiltaket er ferdig utbygd skal dette medføre oppdatering av grunnkartet (øvrige FKB-datasett). Tiltak som er registrert i grunnkartet merkes med kartregistrering "Innmålt i kartet" (KARTREG 2) i FKB-Tiltak. 
  
 [discrete]
@@ -91,7 +93,7 @@ Når tiltaket er ferdig utbygd skal dette medføre oppdatering av grunnkartet (�
 |Området som tiltaket befinner seg innenfor.
  
 |Multiplisitet: 
-|[1..1]
+|[0..1]
  
 |Type: 
 |http://skjema.geonorge.no/SOSI/basistype/GM_Surface[GM_Surface]
@@ -146,7 +148,7 @@ SOSI_navn: SAKSREFERANSE +
 |
 defaultCodeSpace: https://register.geonorge.no/sosi-kodelister/fkb/tiltak/5.0/behandlingsstatus + 
 SOSI_datatype: T + 
-SOSI_lengde: 10 + 
+SOSI_lengde: 11 + 
 SOSI_navn: BEHANDLINGSSTATUS + 
 |===
 [cols="20,80"]
@@ -212,13 +214,10 @@ SOSI_navn: EKSTERNPEKER +
 [cols="20,80"]
 |===
 |*Navn:* 
-|*posisjon innenfor område*
+|*skal ha enten punkt- eller flategeometri*
  
 |Beskrivelse: 
-|
---ingen OCL, restriksjonen implementeres manuelt
- + 
---Dersom det finnes område-geometri skal posisjon-geometrien ligge innenfor område-geometrien
+|inv: (self.område -&gt; size() ) + (self.posisjon -&gt; size() ) = 1
  
 |===
  
@@ -230,8 +229,8 @@ SOSI_navn: EKSTERNPEKER +
 |<<fellesegenskaper,«FeatureType» Fellesegenskaper>>
  
 |Subtyper:
-|<<andretiltak,«featureType» AndreTiltak>> +
-<<samferdseltiltak,«featureType» SamferdselTiltak>> +
+|<<samferdseltiltak,«featureType» SamferdselTiltak>> +
+<<andretiltak,«featureType» AndreTiltak>> +
 <<bygningtiltak,«featureType» BygningTiltak>> +
 |Realisering av: 
 |«ApplicationSchema» Plan 4.5.2/EnkeltSaker::«featureType» PblTiltak +
@@ -600,7 +599,7 @@ SOSI_navn: KNEKKLINJETYPE +
 |T
  
 |SOSI_lengde
-|10
+|11
  
 |SOSI_navn
 |BEHANDLINGSSTATUS
@@ -928,12 +927,12 @@ SOSI_navn: MEDIUM +
 [cols="20,80"]
 |===
 |Subtyper:
-|<<tiltakgenerell,«FeatureType» TiltakGenerell>> +
-<<bygningknekklinje,«featureType» BygningKnekklinje>> +
-|Realisering av: 
-|/SOSI Model/SOSI Generell objektkatalog/FKB Generell del/FKB Generell del-5.0/Generelle elementer::«FeatureType» Fellesegenskaper +
+|<<bygningknekklinje,«featureType» BygningKnekklinje>> +
+<<tiltakgenerell,«FeatureType» TiltakGenerell>> +
 |Realisering av: 
 |«ApplicationSchema» Generelle typer 5.1/SOSI_Fellesegenskaper og SOSI_Objekt::«FeatureType» SOSI_Objekt +
+|Realisering av: 
+|/SOSI Model/SOSI Generell objektkatalog/FKB Generell del/FKB Generell del-5.0/Generelle elementer::«FeatureType» Fellesegenskaper +
 |===
  
 '''
